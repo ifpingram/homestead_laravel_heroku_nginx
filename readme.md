@@ -6,10 +6,25 @@ A base Laravel 4.2.11 which can be used in a Homestead [multi-site setup](http:/
 
 - /nginx_app.conf - to provide the gubbins to make the Laravel resource routing work correctly on Heroku's nginx server
 - /Procfile - to reference the nginx_app.conf file and set /public as webserver root
-- /env.local.php with the default homestead pgsql connection details for the local db
 - /app/config/database.php - addition of lines 3-8, and change of lines 75-78 to support pgsql in both dev and production on heroku via [DATABSE_URL environment variable](https://devcenter.heroku.com/articles/getting-started-with-php#provision-a-database)
 - /generators/example.sh - a simple bash script to make it a little easier to type long db migration in the generator scaffold provided by [way/generators](https://github.com/JeffreyWay/Laravel-4-Generators) which is added to require of /composer.json - if added to require-dev, it breaks the build in Heroku, and I don't have time to work out how to make a buildpack to fix this.
 - addition of the Heroku buildpack to require-dev in /composer.json for installing in local Homestead environment. I do not know whether this is a good or bad thing; it isn't required; I do not know if it has any affect on making the local deployment more similar to the Heroku deployment, but it doesn't seem to have broken anything thus far...
+
+- /env.local.php with the default homestead pgsql connection details for the local db - NOTE: Although this is now in the repo, this is not included in the .gitignore, as per the Laravel convention to not push .env.*.php files between deployments
+
+Don't forget that if you are using this repo with Homestead to develop a project locally, you will need to add the site to the Homestead.yaml and then reprovision the VM:
+
+```yaml
+sites:
+    - map: homestead_laravel_heroku_nginx.local
+      to: /home/vagrant/projects/homestead_laravel_heroku_nginx/public
+```
+
+and then:
+
+```bash
+> vagrant reload --provision
+```
 
 ## Laravel PHP Framework
 
