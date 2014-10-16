@@ -12,13 +12,15 @@ A base Laravel 4.2.11 which can be used in a Homestead [multi-site setup](http:/
 
 - /env.local.php with the default homestead pgsql connection details for the local db - NOTE: Although this is now in the repo, this is not included in the .gitignore, as per the Laravel convention to not push .env.*.php files between deployments
 
-Don't forget that if you are using this repo with Homestead to develop a project locally, you will need to add the site to the Homestead.yaml and then reprovision the VM:
+Don't forget that if you are using this repo with Homestead to develop a project locally, you will need to add the site to the Homestead.yaml and then re-provision the VM:
 
 ```yaml
 sites:
-    - map: homestead_laravel_heroku_nginx.local
-      to: /home/vagrant/projects/homestead_laravel_heroku_nginx/public
+    - map: homestead-laravel-heroku-nginx.local
+      to: /home/vagrant/projects/homestead-laravel-heroku-nginx/public
 ```
+
+Note: do not use underscores in the URLs, otherwise this will throw Exceptions in Laravel, as they are not valid with [filter_var($url, FILTER_VALIDATE_URL)](http://forumsarchive.laravel.io/viewtopic.php?pid=19972)
 
 and then:
 
